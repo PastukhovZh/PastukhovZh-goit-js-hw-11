@@ -2,6 +2,7 @@ body{
     background-color: cadetblue;
 }
 
+
 input {
   font: inherit;
   padding: 8px;
@@ -14,8 +15,8 @@ margin-top: 16px;
   outline: transparent;
 }   
 
-.input-wrap{
-    background-color: rgba(100, 148, 237, 0.644);
+.search-form{
+    /* background-color: rgba(100, 148, 237, 0.479); */
     display: flex;
     justify-content: center;
 }

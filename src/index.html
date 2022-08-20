@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="input-wrap">
-      <input type="text" id="search-box" />
-    </div>
-    <ul class="country-list"></ul>
-    <div class="country-info"></div>
-    <script src="./index.js"></script>
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="gallery"></div>
   </body>
 </html>
