@@ -29,38 +29,62 @@ loadMoreBtn.addEventListener('click', onLoadMoreBtn);
 
 
 function onLoadMoreBtn() {
+    page += 1;
+    fetchPictures(usersInput, page, perPage).then(({ data }) => renderPictures(data.hits)).catch(error => console.log(error));;
+    // Math.ceil(data.totalHits / perPage);
+    
 };
 
 function onFormSubmit(e) {
     e.preventDefault()
-    // loadMoreBtn.classList.add('is-hidden');
-    //    const input = document.querySelector('input');
-    // //  const textValue = e.target.value.trim();
-    // if (input.value === '') {
-    //     // warningEmptyInput()
-    //     return Notify.warning("Sorry, there are no images matching your search query. Please try again.");
-    // }
-    // fetchPictures(input);
-    // page = 1;
-    // perPage = 40;
 
     page = 1;
     usersInput = e.currentTarget.searchQuery.value
+    loadMoreBtn.classList.add('is-hidden');
+    gallery.innerHTML = '';
     if (usersInput === '') {
         return Notify.warning("Sorry, there are no images matching your search query. Please try again.");
     }
-    // loadMoreBtn.classList.add('is-hidden');
-    gallery.innerHTML = '';
-    // fetchPictures(usersInput, page, perPage)
-    // renderPictures(fetchPictures)
-fetchPictures(usersInput, page, perPage).then(({data}) => renderPictures(data.hits))
+fetchPictures(usersInput, page, perPage).then(({ data }) => {
+    if (data.totalHits === 0) {
+        return Notify.failure('Images not found! Please, write correct request!')
+    }
+    else {
+        
+        if (data.totalHits === 1) {
+                renderPictures(data.hits)
+            Notify.success(`Yeap, we found ${data.totalHits} picture`);
+            loadMoreBtn.classList.remove('is-hidden')
+            return
+        } else {
+            renderPictures(data.hits)
+            Notify.success(`Yeap, we found ${data.totalHits} pictures`);
+            loadMoreBtn.classList.remove('is-hidden')
+            return    
+        }
+    }
+}).catch(error => console.log(error))
+    .finally(() => {
+      form.reset();
+    });
 };
 
 // fetchPictures(usersInput, page, perPage).then(({data}) => renderPictures(data.hits))
 
-
-
-
-// function warningEmptyInput() {
-//     return Notify.warning("Sorry, there are no images matching your search query. Please try again.");
-// };
+// fetchPictures(usersInput, page, perPage).then(({ data }) => {
+//     if (data.totalHits === 0) {
+//         return Notify.failure('Images not found! Please, write correct request!')
+//     }
+//     else {
+        
+//         if (data.totalHits === 1) {
+//                 renderPictures(data.hits)
+//                  Notify.success(`Yeap, we found ${data.totalHits} picture`)
+//             return
+//         } else {
+//             renderPictures(data.hits)
+//             Notify.success(`Yeap, we found ${data.totalHits} pictures`)
+//             return    
+//         }
+//     }
+// })

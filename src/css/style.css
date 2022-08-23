@@ -26,9 +26,41 @@ margin-top: 16px;
 }
 
 .gallery{
-  
+display: flex;
+flex-wrap: wrap;
+margin: -15px;
+justify-content: center;
 }
 
-.btn-load-more .is-hidden {
+.is-hidden {
   display: none;
 } 
+
+.photo-card{
+  width: 340px;
+  height: 300px;
+  margin: 15px;
+}
+img{
+  width: 340px;
+  height: 240px;
+}
+.info{
+  display: flex;
+  width: 270px;
+}
+
+.info-item{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+  .wrap{
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    
+  }
