@@ -15,8 +15,20 @@ margin-top: 16px;
   outline: transparent;
 }   
 
+.search-form > button{
+  height: 40px;
+}
 .search-form{
-    /* background-color: rgba(100, 148, 237, 0.479); */
+
     display: flex;
     justify-content: center;
+    align-items: center;
 }
+
+.gallery{
+  
+}
+
+.btn-load-more .is-hidden {
+  display: none;
+} 
