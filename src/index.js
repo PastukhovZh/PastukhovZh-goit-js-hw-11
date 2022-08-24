@@ -30,8 +30,16 @@ loadMoreBtn.addEventListener('click', onLoadMoreBtn);
 
 function onLoadMoreBtn() {
     page += 1;
-    fetchPictures(usersInput, page, perPage).then(({ data }) => renderPictures(data.hits)).catch(error => console.log(error));;
-    // Math.ceil(data.totalHits / perPage);
+    fetchPictures(usersInput, page, perPage).then(({ data }) => {
+        renderPictures(data.hits)
+         const totalPages = Math.ceil(data.totalHits / perPage);
+
+      if (page > totalPages) {
+          loadMoreBtn.classList.add('is-hidden');
+          Notify.failure('You found all image in this library.');
+          return
+      }
+    }).catch(error => console.log(error));
     
 };
 
@@ -45,7 +53,10 @@ function onFormSubmit(e) {
     if (usersInput === '') {
         return Notify.warning("Sorry, there are no images matching your search query. Please try again.");
     }
-fetchPictures(usersInput, page, perPage).then(({ data }) => {
+    fetchPictures(usersInput, page, perPage).then(({ data }) => {
+    if (data.totalHits > perPage) {
+          loadMoreBtn.classList.remove('is-hidden');
+        }
     if (data.totalHits === 0) {
         return Notify.failure('Images not found! Please, write correct request!')
     }
@@ -54,12 +65,12 @@ fetchPictures(usersInput, page, perPage).then(({ data }) => {
         if (data.totalHits === 1) {
                 renderPictures(data.hits)
             Notify.success(`Yeap, we found ${data.totalHits} picture`);
-            loadMoreBtn.classList.remove('is-hidden')
+            // loadMoreBtn.classList.remove('is-hidden')
             return
         } else {
             renderPictures(data.hits)
             Notify.success(`Yeap, we found ${data.totalHits} pictures`);
-            loadMoreBtn.classList.remove('is-hidden')
+            // loadMoreBtn.classList.remove('is-hidden')
             return    
         }
     }
